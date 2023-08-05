@@ -14,6 +14,6 @@ import { NgxUsefulSwiperModule } from 'ngx-useful-swiper';
     NgxUsefulSwiperModule,
     CommonModule,
     HomeRoutingModule
-  ]
+  ],exports:[HomeComponent]
 })
 export class HomeModule { }

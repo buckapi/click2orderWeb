@@ -3,13 +3,14 @@ import { HttpClient, HttpHeaders }  from '@angular/common/http';
 import { Observable }  from 'rxjs/internal/Observable';
 import { map } from 'rxjs/operators';
 import { UserInterface } from '@app/interfaces/user-interface';
+import { Yeoman } from './yeoman.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthRESTService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,public yeoman:Yeoman) { }
 
 	headers : HttpHeaders = new HttpHeaders({
 		"Content-Type":"application/json"
@@ -17,7 +18,7 @@ export class AuthRESTService {
 
 	//registerUser( email: string, password: string,status :string,userType :string){
 	registerUser( email: string, password: string){
-		const url_api ='https://db.buckapi.us:7001/api/Users';
+		const url_api ='https://db.buckapi.us:7777/api/Users';
 		return this.http
 		//.post<UserInterface>(url_api,{email,password,status,userType},{headers:this.headers})
 		.post<UserInterface>(url_api,{email,password},{headers:this.headers})
@@ -25,7 +26,7 @@ export class AuthRESTService {
 	}
 
 	loginUser(email:string, password:string):Observable<any>{
-		const url_api ='https://db.buckapi.us:7001/api/Users/login?include=user';
+		const url_api ='https://db.buckapi.us:7777/api/Users/login?include=user';
 		return this.http
 		.post<UserInterface>(url_api,{email,password},{headers:this.headers})
 		.pipe(map(data => data));
@@ -34,6 +35,7 @@ export class AuthRESTService {
   	setUser(user:UserInterface):void{
   		let user_string = JSON.stringify(user);
   		localStorage.setItem("currentUser",user_string);
+		
   	}	
   	setToken(token:any): void{
   		localStorage.setItem("accessToken",token);
@@ -53,9 +55,10 @@ export class AuthRESTService {
   		}
 	 logoutUser(){
 	  	let accessToken = localStorage.getItem('accessToken');
-		  	const url_api = 'https://db.buckapi.us:7001/api/users/logout?access_token=${accessToken}';
+		  	const url_api = 'https://db.buckapi.us:7777/api/users/logout?access_token=${accessToken}';
 		   	localStorage.removeItem('accessToken');
 		  	localStorage.removeItem('currentUser');
+			  localStorage.removeItem('isLoggedin');
 		  	return this.http.post<UserInterface>(url_api,{headers: this.headers});
 	 	}
 }

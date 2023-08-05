@@ -60,6 +60,13 @@ export class DataApiService {
 		.delete<PartInterface>(url_api, {headers: this.headers})
 		.pipe(map(data => data));
 	}
+	deleteProduct(id: string){
+		const token = this.AuthRESTService.getToken();
+		const url_api=	this.yeoman.origin.restUrl+`/api/products/${id}/?access_token$={token}`;
+		return this.http
+		.delete<PartInterface>(url_api, {headers: this.headers})
+		.pipe(map(data => data));
+	}
 	deleteCar(id: string){
 		const token = this.AuthRESTService.getToken();
 		const url_api=	this.yeoman.origin.restUrl+`/api/cars/${id}/?access_token$={token}`;

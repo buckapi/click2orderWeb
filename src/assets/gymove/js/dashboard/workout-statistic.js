@@ -314,12 +314,12 @@
 			show:false,
 		},
 		fill:{
-			colors:['#FF9900','#0B2A97','#EBEBEB']
+			colors:['#FF9900','#0A60C2','#EBEBEB']
 		},
 		stroke:{
 			width:0,
 		},
-		colors:['#FF9900','#0B2A97','#EBEBEB'],
+		colors:['#FF9900','#0A60C2','#EBEBEB'],
 		dataLabels: {
           enabled: false
         }
@@ -359,7 +359,7 @@
         },
         fill: {
           type: 'gradient',
-		  colors:'#0B2A97',
+		  colors:'#0A60C2',
           gradient: {
               shade: 'dark',
               shadeIntensity: 0.15,
@@ -371,7 +371,7 @@
         },
         stroke: {
 			lineCap: 'round',
-		  colors:'#0B2A97'
+		  colors:'#0A60C2'
         },
         labels: [''],
         };

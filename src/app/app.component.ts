@@ -9,7 +9,12 @@ import { DataApiService } from './services/data-api.service';
 import { DemoFilePickerAdapter } from  './file-picker.adapter';
 import { UploaderCaptions } from 'ngx-awesome-uploader';
 import Swal from 'sweetalert2'
+
 import {CATEGORIES} from '@app/services/categories.service';
+import { Router } from '@angular/router';
+import { ExistenciaService } from '@app/services/existencia-service.service';
+import { AuthRESTService } from './services/authREST.service';
+
 declare const XM_Popup: any;
 
 @Component({
@@ -18,6 +23,8 @@ declare const XM_Popup: any;
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements AfterViewInit {
+  existencias: any[] = []; 
+  existenciasSize:number=0;
   @ViewChild('deleteSwal')
   categories: any;
   // public readonly deleteSwal!: SwalComponent;
@@ -132,30 +139,39 @@ public getProducts(){
   title = 'vk';
   adapter = new  DemoFilePickerAdapter(this.http,this._butler);
   constructor(
+    public existenciaService:ExistenciaService,
     private http: HttpClient,
- 
+ public router:Router,
    // private formBuilder: FormBuilder,
  //   private ngxService: NgxUiLoaderService,
     public _butler:Butler,
     public yeoman:Yeoman,
     public dataApiService: DataApiService,
+    public authRESTService:AuthRESTService,
     public script:ScriptService
   ){
+
+    this.yeoman.user=this.authRESTService.getCurrentUser();
     this._butler.data=this.data;
 // this.dataApiService.getAllProducts().subscribe(response => {
 //     // this.ngxService.stop("loader-01");
 //   this.products$ = response
 //   });
-  // this.script.load(
+this.script.load(
   
-  //        'bundle'
-  //        )
-  //        .then(data => {
-  //         this.popup=ScriptStore;
-  //         console.log( this.popup);
-  //        })
-  //        .catch(error => console.log(error));
-  
+    // 'global',
+    // 'select',
+    // 'chart',
+    // 'custom',
+    // 'deznav',
+    // 'owl',
+    // 'peity',
+    // 'apex',
+    // 'dashboard'
+   )
+   .then(data => {
+   })
+   .catch(error => console.log(error));
   
   }
   config: SwiperOptions = {
@@ -172,5 +188,23 @@ public getProducts(){
       prevEl: '.swiper-button-prev'
     },
   };  
-  ngAfterViewInit(): void {}
+  obtenerExistencias() {
+    const familia = "%5Bobject+Object%5D";
+
+    this.existenciaService.getAllExistencias(familia).subscribe(
+      (data) => {
+        this.existencias = data;
+        this.yeoman.existencias=null;
+        this.yeoman.existencias=this.existencias;
+        this.yeoman.existenciasSize=this.existencias.length;
+        // Aquí puedes hacer algo con los datos obtenidos, como mostrarlos en el template.
+      },
+      (error) => {
+        console.error('Error al obtener existencias:', error);
+      }
+    );
+  }
+  ngAfterViewInit(): void {
+    this.obtenerExistencias();
+  }
 }

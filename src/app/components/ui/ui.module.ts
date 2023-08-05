@@ -4,6 +4,10 @@ import { NavHeaderComponent } from './navHeader/nav-header/nav-header.component'
 import { DashboardHeaderComponent } from './dashboardHeader/dashboard-header/dashboard-header.component';
 import { DezNavComponent } from './dezNav/dez-nav/dez-nav.component';
 import { DashboardFooterComponent } from './dashboardFooter/dashboard-footer/dashboard-footer.component';
+import { ChatBoxComponent } from './chatBox/chat-box/chat-box.component';
+import { Router, RouterModule,ActivatedRoute } from '@angular/router';
+import { Yeoman } from '@app/services/yeoman.service';
+import { Butler } from '@app/services/butler.service';
 
 
 
@@ -12,16 +16,18 @@ import { DashboardFooterComponent } from './dashboardFooter/dashboard-footer/das
     NavHeaderComponent,
     DashboardHeaderComponent,
     DezNavComponent,
-    DashboardFooterComponent
+    DashboardFooterComponent,
+    ChatBoxComponent
   ],
   imports: [
+    RouterModule,
     CommonModule
   ],
   providers:[
-
+    Yeoman,Butler
   ],
   exports:[
-    NavHeaderComponent,DashboardHeaderComponent,DezNavComponent,DashboardFooterComponent
+    NavHeaderComponent,DashboardHeaderComponent,DezNavComponent,DashboardFooterComponent,ChatBoxComponent
   ],
 })
 export class UiModule { }

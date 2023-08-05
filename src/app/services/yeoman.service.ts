@@ -5,6 +5,11 @@ import { Injectable } from '@angular/core';
 })
 
 export class Yeoman {
+  preview:any={};
+  user:any;
+  all:any=[];
+  existencias:any=[];
+  existenciasSize:number=0;
     virtualRoute:any="dashboard";
     pop:Boolean=false;
     data:any={};
@@ -20,7 +25,7 @@ export class Yeoman {
       GQLUrl: string;
     } = {
       name: "default",
-      restUrl: "<origin rest url>",
+      restUrl: "https://db.buckapi.us:7777",
       GQLUrl: "<origin GQL url>",
     };
     constructor() {}

@@ -15,6 +15,7 @@ export class Butler {
     images:any[]=[];
     partImages:any[]=[];
     carImages:any[]=[];
+    uploaderImages:any[]=[];
     memberImages:any[]=[];
     myProducts$:any={};
     myCars$:any={};
@@ -53,6 +54,8 @@ export class Butler {
     review:boolean=false;
     newPartImage:boolean=false;
     newCarImage:boolean=false;
+
+    newUploaderImage:boolean=false;
     profileImageLoaded:boolean=false;
     carsSelected:boolean=true;
     partsSelected:boolean=false;
